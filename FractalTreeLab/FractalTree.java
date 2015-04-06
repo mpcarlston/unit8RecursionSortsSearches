@@ -7,7 +7,7 @@
 import java.awt.*;
 import javax.swing.JPanel;
 
-public class KochPanel extends JPanel
+public class FractalTree extends JPanel
 {
    private final int PANEL_WIDTH = 400;
    private final int PANEL_HEIGHT = 400;
@@ -23,9 +23,9 @@ public class KochPanel extends JPanel
    //-----------------------------------------------------------------
    //  Sets the initial fractal order to the value specified.
    //-----------------------------------------------------------------
-   public KochPanel (int currentOrder)
+   public FractalTree ()
    {
-      current = currentOrder;
+      
       setBackground (Color.black);
       setPreferredSize (new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
    }
@@ -36,60 +36,29 @@ public class KochPanel extends JPanel
    //  intermediate points are computed, and each line segment is
    //  drawn as a fractal.
    //-----------------------------------------------------------------
-   public void drawFractal (int order, int x1, int y1, int x2, int y2,
+   public void drawFractal (int x1, int y1, int x2, int y2,
                             Graphics page)
    {
-      int deltaX, deltaY, x, y;
-
-      if (order == 1)
-         page.drawLine (x1, y1, x2, y2);
-      else
-      {
-         deltaX = x2-x1;
-         deltaY = x2-x1;
-         x2 = x1 + deltaX / 3;  
-         y2 = y1 + deltaY / 3;
-
-         x3 = (int) ((x1+x5)/2 + SQ * (y1-y5));  // tip of projection
-         y3 = (int) ((y1+y5)/2 + SQ * (x5-x1));
-
-         x4 = x1 + deltaX * 2/3;  // two thirds
-         y4 = y1 + deltaY * 2/3;
-
-         drawFractal (order-1, x1, y1, x2, y2, page);
-         drawFractal (order-1, x2, y2, x3, y3, page);
-         drawFractal (order-1, x3, y3, x4, y4, page);
-         drawFractal (order-1, x4, y4, x5, y5, page);
-      }
+       double length = Math.sqrt((double)Math.pow((double)x2-x1,2)+Math.pow((double)y2-y1,2));
    }
+      
+   
 
    //-----------------------------------------------------------------
    //  Performs the initial calls to the drawFractal method.
    //-----------------------------------------------------------------
    public void paintComponent (Graphics page)
    {
-      super.paintComponent (page);
+       
+       super.paintComponent (page);
 
-      page.setColor (Color.green);
-
-      drawFractal (current, TOPX, TOPY, LEFTX, LEFTY, page);
-      drawFractal (current, LEFTX, LEFTY, RIGHTX, RIGHTY, page);
-      drawFractal (current, RIGHTX, RIGHTY, TOPX, TOPY, page);
+      
+      
    }
-
    //-----------------------------------------------------------------
    //  Sets the fractal order to the value specified.
-   //-----------------------------------------------------------------
-   public void setOrder (int order)
-   {
-      current = order;
-   }
-
+   //----------------------------------------------------------------
    //-----------------------------------------------------------------
    //  Returns the current order.
    //-----------------------------------------------------------------
-   public int getOrder ()
-   {
-      return current;
-   }
 }
