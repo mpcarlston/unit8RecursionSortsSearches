@@ -11,8 +11,8 @@ import javax.swing.*;
 
 public class FractalTreeViewer
 {
-    private final int WIDTH = 400;
-    private final int HEIGHT = 500;
+    private final int WIDTH = 1000;
+    private final int HEIGHT = 1000;
 
 
     private JLabel titleLabel, orderLabel;
@@ -37,15 +37,21 @@ public class FractalTreeViewer
 
         titleLabel = new JLabel ("The Fractal Tree");
         titleLabel.setForeground (Color.black);
-
-        drawing = new FractalTree();
-
+        
+        orderLabel = new JLabel ("Order: 1");
+        orderLabel.setForeground (Color.black);
+        
+        
+        tools.add (titleLabel);
+        
+        drawing = new FractalTree(1);
+        
         panel = new JPanel();
         panel.add (tools);
         panel.add (drawing);
 
         frame = new JFrame();
-        frame.setTitle("Fractal Tree");
+        frame.setTitle("The Fractal Tree");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(WIDTH, HEIGHT);
         frame.add(panel);
